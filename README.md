@@ -17,5 +17,5 @@ $ systemctl status nginx
 
 You should see 'active (running)' in green that confirms nginx is operational. 
 
-
+![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
 
