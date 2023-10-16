@@ -14,6 +14,8 @@ Type Y and OK for any prompts
 Then proceed to install Nginx:
 $ sudo apt install nginx
 
+![nginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginx.png?raw=true)
+
 Check Nginx is running:
 $ systemctl status nginx
 
