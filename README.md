@@ -21,5 +21,5 @@ $ systemctl status nginx
 
 You should see 'active (running)' in green that confirms nginx is operational. 
 
-
+![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
 
