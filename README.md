@@ -289,27 +289,24 @@ mysql>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 
 Now we need to give this user permission over the example_database database:
 
 mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
-This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server.
+This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server. In this example we have a shop_databse and a shop_user:
+
+![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
 
 Now exit the MySQL shell with:
 
 mysql> exit
 You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials:
 
-mysql -u example_user -p
+$ mysql -u example_user -p
 Notice the -p flag in this command, which will prompt you for the password used when creating the example_user user. After logging in to the MySQL console, confirm that you have access to the example_database database:
 
 mysql> SHOW DATABASES;
 This will give you the following output:
 
-Output
-+--------------------+
-| Database           |
-+--------------------+
-| example_database   |
-| information_schema |
-+--------------------+
-2 rows in set (0.000 sec)
+![showDatabasesMySQL](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/showDatabasesMySQL.png?raw=true)
+
+
 Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
 
 CREATE TABLE example_database.todo_list (
