@@ -273,23 +273,23 @@ In this step you will create a test database (DB) with simple "To do list" and c
 
 At the time of this writing, the native MySQL PHP library mysqlnd doesn’t support caching_sha2_authentication, the default authentication method for MySQL 8. We’ll need to create a new user with the mysql_native_password authentication method in order to be able to connect to the MySQL database from PHP.
 
-We will create a database named example_database and a user named example_user, but you can replace these names with different values.
+We will create a database named shop_database and a user named shop_user, but you can replace these names with different values.
 
 First, connect to the MySQL console using the root account:
 
 sudo mysql
 To create a new database, run the following command from your MySQL console:
 
-mysql> CREATE DATABASE `example_database`;
+mysql> CREATE DATABASE `shop_database`;
 Now you can create a new user and grant him full privileges on the database you have just created.
 
-The following command creates a new user named example_user, using mysql_native_password as default authentication method. We’re defining this user’s password as password, but you should replace this value with a secure password of your own choosing.
+The following command creates a new user named shop_user, using mysql_native_password as default authentication method. We’re defining this user’s password as password, but you should replace this value with a secure password of your own choosing.
 
-mysql>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-Now we need to give this user permission over the example_database database:
+mysql>  CREATE USER 'shop_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+Now we need to give this user permission over the shop_database database:
 
-mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
-This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server. In this example we have a shop_databse and a shop_user:
+mysql> GRANT ALL ON shop_database.* TO 'shop_user'@'%';
+This will give the shop_user user full privileges over the shop_database database, while preventing this user from creating or modifying other databases on your server. In this shop we have a shop_databse and a shop_user:
 
 ![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
 
@@ -298,8 +298,8 @@ Now exit the MySQL shell with:
 mysql> exit
 You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials:
 
-$ mysql -u example_user -p
-Notice the -p flag in this command, which will prompt you for the password used when creating the example_user user. After logging in to the MySQL console, confirm that you have access to the example_database database:
+$ mysql -u shop_user -p
+Notice the -p flag in this command, which will prompt you for the password used when creating the shop_user user. After logging in to the MySQL console, confirm that you have access to the shop_database database:
 
 mysql> SHOW DATABASES;
 This will give you the following output:
@@ -309,29 +309,21 @@ This will give you the following output:
 
 Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
 
-CREATE TABLE example_database.todo_list (
+CREATE TABLE shop_database.todo_list (
 mysql>     item_id INT AUTO_INCREMENT,
 mysql>     content VARCHAR(255),
 mysql>     PRIMARY KEY(item_id)
 mysql> );
 Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES:
 
-mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
+mysql> INSERT INTO shop_database.todo_list (content) VALUES ("My first important item");
 To confirm that the data was successfully saved to your table, run:
 
-mysql>  SELECT * FROM example_database.todo_list;
+mysql>  SELECT * FROM shop_database.todo_list;
 You’ll see the following output:
 
-Output
-+---------+--------------------------+
-| item_id | content                  |
-+---------+--------------------------+
-|       1 | My first important item  |
-|       2 | My second important item |
-|       3 | My third important item  |
-|       4 | and this one more thing  |
-+---------+--------------------------+
-4 rows in set (0.000 sec)
+![createDBshop](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/createDBshop.png?raw=true)
+
 After confirming that you have valid data in your test table, you can exit the MySQL console:
 
 mysql> exit
@@ -343,9 +335,9 @@ The following PHP script connects to the MySQL database and queries for the cont
 Copy this content into your todo_list.php script:
 
 <?php
-$user = "example_user";
-$password = "password";
-$database = "example_database";
+$user = "shop_user";
+$password = "<your password>";
+$database = "shop_database";
 $table = "todo_list";
 
 try {
