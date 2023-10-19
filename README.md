@@ -5,9 +5,9 @@ After setting up an EC2 instance on AWS, ensure inbound rules for the security g
 
 ssh into the instance and do the following:
 
-$ sudo apt update
+- $ sudo apt update
 
-$ sudo apt upgrade
+- $ sudo apt upgrade
 
 ![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
 
