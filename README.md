@@ -199,7 +199,6 @@ Paste this into the new file:
            location ~ /\.ht {
                deny all;
            }
-       
        }
 
               ![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
