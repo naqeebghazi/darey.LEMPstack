@@ -201,6 +201,7 @@ Paste this into the new file:
            }
        }
 
+
               ![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
 
 
