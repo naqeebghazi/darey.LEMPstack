@@ -2,7 +2,7 @@
 
 After setting up an EC2 instance on AWS, ensure inbound rules for the security group are 'All traffic', allow IPv4:
 
-       ![inbound rules](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/inboundrules.png?raw=true)
+![inbound rules](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/inboundrules.png?raw=true)
 
 ssh into the instance and do the following:
 
@@ -10,7 +10,7 @@ ssh into the instance and do the following:
 
        $ sudo apt upgrade
 
-              ![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
+![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
 
 Type Y and OK for any prompts
 
@@ -18,14 +18,15 @@ Then proceed to install Nginx:
 
        $ sudo apt install nginx
 
-              ![nginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginx.png?raw=true)
+![nginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginx.png?raw=true)
 
 Check Nginx is running:
+
        $ systemctl status nginx
 
 You should see 'active (running)' in green that confirms nginx is operational. 
 
-              ![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
+![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
 
 Check that the server is reacheable locally on port 80:
 
@@ -33,12 +34,13 @@ Check that the server is reacheable locally on port 80:
 
 You should see this output:
 
-              ![nginx_curllocalhost](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/curllocalhost.png?raw=true)
+![nginx_curllocalhost](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/curllocalhost.png?raw=true)
 
 The server will be reacheable via http at the correct address (check ec2 console)
 For example: http://ec2-33-176-21-91.eu-west-2.compute.amazonaws.com/
 
 To check public IPv4 address:
+
        $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 ## Install MySQL
@@ -60,7 +62,7 @@ Then in linux, start the interactive script:
 
        $ sudo mysql_secure_installation
 
-              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLserverinstallation.png?raw=true)
+![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLserverinstallation.png?raw=true)
 
 There is a password for logging into MySQL and a passowrd as a root user within MySQL. The prompts that follow are for both of these:
 
@@ -68,7 +70,7 @@ Once complete, log back into MySQL:
 
        $ sudo mysql -p
 
-              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLloginMessage.png?raw=true)
+![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLloginMessage.png?raw=true)
 
 -p flag will prompt the user for the password used after changing the root user password
 
@@ -144,7 +146,7 @@ Paste in the following bare-bones configuration by hitting on i on the keyboard 
            CustomLog ${APACHE_LOG_DIR}/access.log combined
        </VirtualHost>
 
-              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/apache2sitesavailableconf.png?raw=true)
+![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/apache2sitesavailableconf.png?raw=true)
 
 With this VirtualHost configuration, we’re telling Apache to serve projectlamp using /var/www/projectlampl as its web root directory. 
 
@@ -204,7 +206,6 @@ Paste this into the new file:
 Your code will be like this:
 ![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
 
-
 Here’s what each of these directives and location blocks do:
 
 listen — Defines what port Nginx will listen on. In this case, it will listen on port 80, the default port for HTTP.
@@ -239,7 +240,7 @@ When you are ready, reload Nginx to apply the changes:
 
        $ sudo systemctl reload nginx
 
-              ![nginxcomplete](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginxcomplete.png?raw=true)
+![nginxcomplete](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginxcomplete.png?raw=true)
 
 Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
 
@@ -247,7 +248,7 @@ Your new website is now active, but the web root /var/www/projectLEMP is still e
 
 If you get a permission denied like below, ensure the projectLEMP directory does not have an index.html file and then run the command again.
 
-              ![sudoechoindex](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoechoIndexhtml.png?raw=true)
+![sudoechoindex](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoechoIndexhtml.png?raw=true)
 
 Now go to your browser and try to open your website URL using IP address:
 
@@ -256,13 +257,13 @@ Now go to your browser and try to open your website URL using IP address:
 If you see the text from ‘echo’ command you wrote to index.html file, then it means your Nginx site is working as expected.
 In the output you will see your server’s public hostname (DNS name) and public IP address. You can also access your website in your browser by public DNS name, not only by IP – try it out, the result must be the same (port is optional)
 
-              ![browserURLnginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/browserURLnginx.png?raw=true)
+![browserURLnginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/browserURLnginx.png?raw=true)
 
        http://<Public-DNS-Name>:80
        
 You can leave this file in place as a temporary landing page for your application until you set up an index.php file to replace it. Once you do that, remember to remove or rename the index.html file from your document root, as it would take precedence over an index.php file by default.
 
-              ![DNSbrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DNSbrowser.png?raw=true)
+![DNSbrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DNSbrowser.png?raw=true)
 
 Your LEMP stack is now fully configured. In the next step, we’ll create a PHP script to test that Nginx is in fact able to handle .php files within your newly configured website.
 
@@ -284,7 +285,7 @@ To test/validate that nginx can corrcetly handle .php files do this:
 
 You will see this page with detailed information about your server, thus demonstrating a successful test:
 
-              ![phpPagebrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/phpPagenginx.png?raw=true)
+![phpPagebrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/phpPagenginx.png?raw=true)
 
 Once confirmed, delete the info.php file as keeping it poses a security risk due to the server information it has on it. Use this command:
 
@@ -318,7 +319,7 @@ Now we need to give this user permission over the shop_database database:
        
 This will give the shop_user user full privileges over the shop_database database, while preventing this user from creating or modifying other databases on your server. In this shop we have a shop_databse and a shop_user:
 
-              ![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
+![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
 
 Now exit the MySQL shell with:
 
@@ -334,7 +335,7 @@ Notice the -p flag in this command, which will prompt you for the password used 
        
 This will give you the following output:
 
-              ![showDatabasesMySQL](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/showDatabasesMySQL.png?raw=true)
+![showDatabasesMySQL](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/showDatabasesMySQL.png?raw=true)
 
 
 Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
@@ -355,7 +356,7 @@ To confirm that the data was successfully saved to your table, run:
 
 You’ll see the following output:
 
-              ![createDBshop](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/createDBshop.png?raw=true)
+![createDBshop](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/createDBshop.png?raw=true)
 
 After confirming that you have valid data in your test table, you can exit the MySQL console:
 
@@ -393,7 +394,7 @@ You can now access this page in your web browser by visiting the domain name or 
 
 You should see a page like this, showing the content you’ve inserted in your test table:
 
-              ![Image](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DBinBrowser.png?raw=true)
+![Image](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DBinBrowser.png?raw=true)
 
 That means your PHP environment is ready to connect and interact with your MySQL server.
 
