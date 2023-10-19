@@ -201,7 +201,7 @@ Paste this into the new file:
            }
        }
 
-
+Your code will be like this:
 ![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
 
 
