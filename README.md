@@ -37,7 +37,8 @@ You should see this output:
 ![nginx_curllocalhost](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/curllocalhost.png?raw=true)
 
 The server will be reacheable via http at the correct address (check ec2 console)
-For example: http://ec2-33-176-21-91.eu-west-2.compute.amazonaws.com/
+
+       For example: http://ec2-33-176-21-91.eu-west-2.compute.amazonaws.com/
 
 To check public IPv4 address:
 
