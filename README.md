@@ -26,7 +26,7 @@ Check Nginx is running:
 
 You should see 'active (running)' in green that confirms nginx is operational. 
 
-![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
+![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginxsystemctlstatus.png?raw=true)
 
 Check that the server is reacheable locally on port 80:
 
