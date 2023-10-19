@@ -1,65 +1,65 @@
 # darey.LEMPstack Project
 
 After setting up an EC2 instance on AWS, ensure inbound rules for the security group are 'All traffic', allow IPv4:
-![inbound rules](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/inboundrules.png?raw=true)
+       ![inbound rules](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/inboundrules.png?raw=true)
 
 ssh into the instance and do the following:
 
-- $ sudo apt update
+       - $ sudo apt update
 
-- $ sudo apt upgrade
+       - $ sudo apt upgrade
 
-![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
+              ![sudoaptupgrade](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoaptupdate&upgrade.png?raw=true)
 
 Type Y and OK for any prompts
 
 Then proceed to install Nginx:
-$ sudo apt install nginx
+       $ sudo apt install nginx
 
-![nginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginx.png?raw=true)
+              ![nginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginx.png?raw=true)
 
 Check Nginx is running:
-$ systemctl status nginx
+       $ systemctl status nginx
 
 You should see 'active (running)' in green that confirms nginx is operational. 
 
-![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
+              ![nginxsystemctlstatus](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/Screenshot%202023-10-16%20at%2021.18.56.png?raw=true)
 
 Check that the server is reacheable locally on port 80:
-$ curl -s http://localhost:80
+       $ curl -s http://localhost:80
 
 You should see this output:
-![nginx_curllocalhost](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/curllocalhost.png?raw=true)
+              ![nginx_curllocalhost](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/curllocalhost.png?raw=true)
 
 The server will be reacheable via http at the correct address (check ec2 console)
 For example: http://ec2-33-176-21-91.eu-west-2.compute.amazonaws.com/
 
 To check public IPv4 address:
-$ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+       $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 ## Install MySQL
 
-$ sudo apt install mysql-server
+       $ sudo apt install mysql-server
 Type Y for any prompts
 
 Log into MySQL console:
-$ sudo mysql
+       $ sudo mysql
 
 Once logged in, run the security script that comes with MySQL pre-installed:
-$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
-$ exit
+       $ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
+       $ exit
 
 Then in linux, start the interactive script:
-$ sudo mysql_secure_installation
+       $ sudo mysql_secure_installation
 
-![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLserverinstallation.png?raw=true)
+              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLserverinstallation.png?raw=true)
 
 There is a password for logging into MySQL and a passowrd as a root user within MySQL. The prompts that follow are for both of these:
 
 Once complete, log back into MySQL:
-$ sudo mysql -p
+       $ sudo mysql -p
 
-![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLloginMessage.png?raw=true)
+              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/MySQLloginMessage.png?raw=true)
 
 -p flag will prompt the user for the password used after changing the root user password
 
@@ -79,10 +79,10 @@ You'll need the following components when installing PHP:
 - LibApache2-mod-PHP: enables apache to handle phph files
 
 To install all 3 packages at once:
-$ sudo apt install php libapache2-mod-php php-mysql
+       $ sudo apt install php libapache2-mod-php php-mysql
 
 Check php version:
-$ php -v
+       $ php -v
 
 This finalises the LAMP stack installation
 
@@ -94,7 +94,7 @@ With the default DirectoryIndex settings on Apache, a file named index.html will
 This is useful for setting up maintenance pages in PHP applications, by creating a temporary index.html file containing an informative message to visitors. Because this page will take precedence over the index.php page, it will then become the landing page for the application. Once maintenance is over, the index.html is renamed or removed from the document root, bringing back the regular application page.
 In case you want to change this behavior, you'll need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
 
-$ sudo vim /etc/apache2/mods-enabled/dir.conf
+       $ sudo vim /etc/apache2/mods-enabled/dir.conf
 
 Then in the vim editor, ensure this is whats written (i.e. index.php is prioritised):
 <IfModule mod_dir.c>
@@ -102,22 +102,22 @@ Then in the vim editor, ensure this is whats written (i.e. index.php is prioriti
 </IfModule>
 
 Then, reload Apache:
-$ sudo systemctl reload apache2
+       $ sudo systemctl reload apache2
 
 Optional:
 _ Create a PHP script to test PHP is installed and configured on the server. 
 
-$ sudo mkdir /var/www/projectlamp/index.php _
+       $ sudo mkdir /var/www/projectlamp/index.php _
 
 Next, assign ownership of the directory with your current system user:
-$ sudo chown -R $USER:$USER /var/www/projectlamp
+       $ sudo chown -R $USER:$USER /var/www/projectlamp
 
 Apache on Ubuntu 20.04 has one server block enabled by default that is configured to serve documents from the /var/www/html directory.
 We will leave this configuration as is and will add our own directory next next to the default one.
 
 Then, create and open a new configuration file in Apache’s sites-available directory using your preferred command-line editor. Here, we’ll be using vi or vim (They are the same by the way):
 
-$ sudo vim /etc/apache2/sites-available/projectlamp.conf
+       $ sudo vim /etc/apache2/sites-available/projectlamp.conf
 
 Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and paste the text:
 
@@ -130,7 +130,7 @@ Paste in the following bare-bones configuration by hitting on i on the keyboard 
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
-![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/apache2sitesavailableconf.png?raw=true)
+              ![Image](https://github.com/naqeebghazi/darey.lampstack/blob/main/images/apache2sitesavailableconf.png?raw=true)
 
 With this VirtualHost configuration, we’re telling Apache to serve projectlamp using /var/www/projectlampl as its web root directory. 
 
@@ -142,7 +142,7 @@ While Apache embeds the PHP interpreter in each request, Nginx requires an exter
 
 To install these 2 packages at once, run:
 
-$ sudo apt install php-fpm php-mysql
+       $ sudo apt install php-fpm php-mysql
 When prompted, type Y and press ENTER to confirm installation.
 
 You now have your PHP components installed.
@@ -151,15 +151,15 @@ You now have your PHP components installed.
 
 Create the root web directory for your_domain as follows:
 
-$ sudo mkdir /var/www/projectLEMP
+       $ sudo mkdir /var/www/projectLEMP
 
 Assign ownership of the directory with the $USER environment variable, which will reference your current system user:
 
-$ sudo chown -R $USER:$USER /var/www/projectLEMP
+       $ sudo chown -R $USER:$USER /var/www/projectLEMP
 
 Open a new configuration file in Nginx’s sites-available directory using your preferred command-line editor. Here, we’ll use nano:
 
-$ sudo nano /etc/nginx/sites-available/projectLEMP
+       $ sudo nano /etc/nginx/sites-available/projectLEMP
 
 Paste this into the new file:
 
@@ -187,7 +187,7 @@ server {
 
 }
 
-![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
+              ![etcnginx_serverCode](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/etcnginx_serverCode.png?raw=true)
 
 
 Here’s what each of these directives and location blocks do:
@@ -203,10 +203,10 @@ When you’re done editing, save and close the file. If you’re using nano, you
 
 Activate your configuration by linking to the config file from Nginx’s sites-enabled directory:
 
-sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
+       $ sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
 This will tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing:
 
-$ sudo nginx -t
+       $ sudo nginx -t
 You shall see following message:
 
     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -216,33 +216,33 @@ If any errors are reported, go back to your configuration file to review its con
 
 We also need to disable default Nginx host that is currently configured to listen on port 80, for this run the following. This may not be necessary if the default file is not present. 
 
-$ sudo unlink /etc/nginx/sites-enabled/default
+       $ sudo unlink /etc/nginx/sites-enabled/default
 
 When you are ready, reload Nginx to apply the changes:
 
-$ sudo systemctl reload nginx
+       $ sudo systemctl reload nginx
 
-![nginxcomplete](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginxcomplete.png?raw=true)
+              ![nginxcomplete](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/nginxcomplete.png?raw=true)
 
 Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
 
-$ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
+       $ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/metadata/public-ipv4) > /var/www/projectLEMP/index.html
 
 If you get a permission denied like below, ensure the projectLEMP directory does not have an index.html file and then run the command again.
 
-![sudoechoindex](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoechoIndexhtml.png?raw=true)
+              ![sudoechoindex](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/sudoechoIndexhtml.png?raw=true)
 
 Now go to your browser and try to open your website URL using IP address:
 
-http://<Public-IP-Address>:80
+       http://<Public-IP-Address>:80
 If you see the text from ‘echo’ command you wrote to index.html file, then it means your Nginx site is working as expected.
 In the output you will see your server’s public hostname (DNS name) and public IP address. You can also access your website in your browser by public DNS name, not only by IP – try it out, the result must be the same (port is optional)
-![browserURLnginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/browserURLnginx.png?raw=true)
+              ![browserURLnginx](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/browserURLnginx.png?raw=true)
 
-http://<Public-DNS-Name>:80
+       http://<Public-DNS-Name>:80
 You can leave this file in place as a temporary landing page for your application until you set up an index.php file to replace it. Once you do that, remember to remove or rename the index.html file from your document root, as it would take precedence over an index.php file by default.
 
-![DNSbrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DNSbrowser.png?raw=true)
+              ![DNSbrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DNSbrowser.png?raw=true)
 
 Your LEMP stack is now fully configured. In the next step, we’ll create a PHP script to test that Nginx is in fact able to handle .php files within your newly configured website.
 
@@ -262,11 +262,11 @@ To test/validate that nginx can corrcetly handle .php files do this:
 
 You will see this page with detailed information about your server, thus demonstrating a successful test:
 
-![phpPagebrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/phpPagenginx.png?raw=true)
+              ![phpPagebrowser](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/phpPagenginx.png?raw=true)
 
 Once confirmed, delete the info.php file as keeping it poses a security risk due to the server information it has on it. Use this command:
 
-$ sudo rm /var/www/your_domain/info.php
+       $ sudo rm /var/www/your_domain/info.php
 
 ## Retrieving data from MySQL database with PHP
 
@@ -278,7 +278,7 @@ We will create a database named shop_database and a user named shop_user, but yo
 
 First, connect to the MySQL console using the root account:
 
-$ udo mysql
+       $ sudo mysql
 To create a new database, run the following command from your MySQL console:
 
        mysql> CREATE DATABASE `shop_database`;
@@ -292,7 +292,7 @@ Now we need to give this user permission over the shop_database database:
 mysql> GRANT ALL ON shop_database.* TO 'shop_user'@'%';
 This will give the shop_user user full privileges over the shop_database database, while preventing this user from creating or modifying other databases on your server. In this shop we have a shop_databse and a shop_user:
 
-![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
+              ![shopDNS](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/shopMySQL.png?raw=true)
 
 Now exit the MySQL shell with:
 
@@ -305,7 +305,7 @@ Notice the -p flag in this command, which will prompt you for the password used 
        mysql> SHOW DATABASES;
 This will give you the following output:
 
-![showDatabasesMySQL](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/showDatabasesMySQL.png?raw=true)
+              ![showDatabasesMySQL](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/showDatabasesMySQL.png?raw=true)
 
 
 Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
@@ -325,17 +325,15 @@ To confirm that the data was successfully saved to your table, run:
 
 You’ll see the following output:
 
-![createDBshop](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/createDBshop.png?raw=true)
+              ![createDBshop](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/createDBshop.png?raw=true)
 
 After confirming that you have valid data in your test table, you can exit the MySQL console:
 
        mysql> exit
 Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use vi for that:
 
-$ nano /var/www/projectLEMP/todo_list.php
-The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displays the results in a list. If there is a problem with the database connection, it will throw an exception.
-
-Copy this content into your todo_list.php script:
+       $ nano /var/www/projectLEMP/todo_list.php
+The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displays the results in a list. If there is a problem with the database connection, it will throw an exception. Copy this content into your todo_list.php script:
 
        <?php
        $user = "shop_user";
@@ -361,9 +359,8 @@ You can now access this page in your web browser by visiting the domain name or 
 http://<Public_domain_or_IP>/todo_list.php
 You should see a page like this, showing the content you’ve inserted in your test table:
 
-![Image](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DBinBrowser.png?raw=true)
+              ![Image](https://github.com/naqeebghazi/darey.LEMPstack/blob/main/images/DBinBrowser.png?raw=true)
 
 That means your PHP environment is ready to connect and interact with your MySQL server.
 
-Congratulations!
-In this guide, we have built a flexible foundation for serving PHP websites and applications to your visitors, using Nginx as web server and MySQL as database management system.
+Complete.
